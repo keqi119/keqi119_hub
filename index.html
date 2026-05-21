@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>星途汽车订阅平台</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#home" data-route="home">
+        <span class="brand-mark">S</span>
+        <span>
+          <strong>星途订阅</strong>
+          <small>Auto Subscription</small>
+        </span>
+      </a>
+      <nav class="main-nav" aria-label="主导航">
+        <a href="#home" data-route="home">首页</a>
+        <a href="#models" data-route="models">车型</a>
+        <a href="#plans" data-route="plans">订阅方案</a>
+        <a href="#user" data-route="user">用户中心</a>
+        <a href="#admin" data-route="admin">后台管理</a>
+      </nav>
+      <a class="ghost-button" href="#apply" data-route="apply">在线申请</a>
+    </header>
+
+    <main>
+      <section class="page active" id="home" data-page="home">
+        <div class="hero">
+          <div class="hero-copy">
+            <span class="eyebrow">新车订阅 · 灵活换车 · 全流程线上办理</span>
+            <h1>像订阅会员一样使用一台车</h1>
+            <p>从选车、资料审核、签署合同到押金支付，一站式完成。适合城市通勤、企业短租和家庭阶段性用车。</p>
+            <div class="hero-actions">
+              <a class="primary-button" href="#models" data-route="models">浏览车型</a>
+              <a class="secondary-button" href="#apply" data-route="apply">立即申请</a>
+            </div>
+          </div>
+          <div class="hero-visual" aria-label="订阅汽车展示">
+            <div class="car-illustration">
+              <div class="car-window"></div>
+              <div class="car-body"></div>
+              <div class="wheel left"></div>
+              <div class="wheel right"></div>
+            </div>
+            <div class="floating-stat top">
+              <strong>最快 1 天</strong>
+              <span>审核交付</span>
+            </div>
+            <div class="floating-stat bottom">
+              <strong>12/24/36</strong>
+              <span>多周期可选</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-header">
+          <span>订阅流程</span>
+          <h2>从看车到开走，流程清楚可追踪</h2>
+        </div>
+        <div class="steps-grid">
+          <article>
+            <strong>01</strong>
+            <h3>选择车型</h3>
+            <p>查看库存、月租、押金和可交付城市。</p>
+          </article>
+          <article>
+            <strong>02</strong>
+            <h3>提交申请</h3>
+            <p>填写用车需求，上传身份证与驾驶证资料。</p>
+          </article>
+          <article>
+            <strong>03</strong>
+            <h3>审核签约</h3>
+            <p>风控审核通过后线上查看并签署合同。</p>
+          </article>
+          <article>
+            <strong>04</strong>
+            <h3>支付提车</h3>
+            <p>支付押金和首期月租，预约交付。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="page" id="models" data-page="models">
+        <div class="section-header">
+          <span>车型列表页</span>
+          <h2>选择适合你的订阅车型</h2>
+          <p>支持按级别、能源类型和库存状态快速筛选。</p>
+        </div>
+        <div class="filter-bar">
+          <button class="filter active" data-filter="all">全部</button>
+          <button class="filter" data-filter="ev">新能源</button>
+          <button class="filter" data-filter="suv">SUV</button>
+          <button class="filter" data-filter="sedan">轿车</button>
+          <button class="filter" data-filter="available">现车可订</button>
+        </div>
+        <div class="model-grid" id="modelGrid"></div>
+      </section>
+
+      <section class="page" id="detail" data-page="detail">
+        <div class="detail-layout" id="detailView"></div>
+      </section>
+
+      <section class="page" id="plans" data-page="plans">
+        <div class="section-header">
+          <span>订阅方案选择页</span>
+          <h2>选择周期与服务包</h2>
+          <p>价格包含基础保险、保养和道路救援，可叠加里程包。</p>
+        </div>
+        <div class="plan-grid" id="planGrid"></div>
+      </section>
+
+      <section class="page" id="apply" data-page="apply">
+        <div class="form-shell">
+          <div>
+            <span class="eyebrow">在线申请页</span>
+            <h2>提交订阅申请</h2>
+            <p>填写后会进入资料上传与审核流程。当前为本地演示，不会真实提交。</p>
+          </div>
+          <form class="stacked-form">
+            <label>
+              订阅车型
+              <select>
+                <option>Model E 城市版</option>
+                <option>Voyage SUV Pro</option>
+                <option>Lux S 商务版</option>
+              </select>
+            </label>
+            <label>
+              用车城市
+              <input type="text" value="上海" />
+            </label>
+            <label>
+              预计开始时间
+              <input type="date" />
+            </label>
+            <label>
+              联系人姓名
+              <input type="text" placeholder="请输入姓名" />
+            </label>
+            <label>
+              手机号
+              <input type="tel" placeholder="请输入手机号" />
+            </label>
+            <label>
+              备注需求
+              <textarea placeholder="如交付地址、颜色偏好、企业用车等"></textarea>
+            </label>
+            <a class="primary-button wide" href="#upload" data-route="upload">下一步：上传资料</a>
+          </form>
+        </div>
+      </section>
+
+      <section class="page" id="upload" data-page="upload">
+        <div class="section-header">
+          <span>身份/驾驶证资料上传页</span>
+          <h2>上传审核资料</h2>
+          <p>资料用于实名认证、驾驶资质和风控校验。</p>
+        </div>
+        <div class="upload-grid">
+          <div class="upload-box">
+            <strong>身份证正反面</strong>
+            <p>支持 JPG、PNG、PDF，需清晰无遮挡。</p>
+            <button>选择文件</button>
+          </div>
+          <div class="upload-box">
+            <strong>驾驶证主页/副页</strong>
+            <p>有效期需覆盖订阅周期。</p>
+            <button>选择文件</button>
+          </div>
+          <div class="upload-box">
+            <strong>补充风控资料</strong>
+            <p>企业用户可上传营业执照或授权书。</p>
+            <button>选择文件</button>
+          </div>
+        </div>
+        <div class="flow-actions">
+          <a class="secondary-button" href="#apply" data-route="apply">返回申请</a>
+          <a class="primary-button" href="#confirm" data-route="confirm">提交审核并确认订单</a>
+        </div>
+      </section>
+
+      <section class="page" id="confirm" data-page="confirm">
+        <div class="checkout-layout">
+          <div class="checkout-main">
+            <span class="eyebrow">订单确认页</span>
+            <h2>确认订阅订单</h2>
+            <div class="summary-list">
+              <div><span>车型</span><strong>Model E 城市版</strong></div>
+              <div><span>周期</span><strong>24 个月</strong></div>
+              <div><span>月租</span><strong>¥4,280/月</strong></div>
+              <div><span>押金</span><strong>¥12,000</strong></div>
+              <div><span>交付城市</span><strong>上海</strong></div>
+            </div>
+          </div>
+          <aside class="checkout-side">
+            <h3>费用合计</h3>
+            <div class="price-line"><span>押金</span><strong>¥12,000</strong></div>
+            <div class="price-line"><span>首期月租</span><strong>¥4,280</strong></div>
+            <div class="price-total"><span>本次应付</span><strong>¥16,280</strong></div>
+            <a class="primary-button wide" href="#payment" data-route="payment">去支付</a>
+          </aside>
+        </div>
+      </section>
+
+      <section class="page" id="payment" data-page="payment">
+        <div class="payment-panel">
+          <span class="eyebrow">支付/押金支付页</span>
+          <h2>支付押金与首期月租</h2>
+          <div class="pay-methods">
+            <button class="pay-method active">微信支付</button>
+            <button class="pay-method">支付宝</button>
+            <button class="pay-method">企业转账</button>
+          </div>
+          <div class="qr-code">¥16,280</div>
+          <p>支付成功后订单进入“待签约/交付”状态。</p>
+          <a class="primary-button" href="#contract" data-route="contract">模拟支付成功</a>
+        </div>
+      </section>
+
+      <section class="page" id="user" data-page="user">
+        <div class="dashboard-layout">
+          <aside class="sidebar">
+            <strong>用户中心</strong>
+            <a href="#user" data-route="user">我的订单</a>
+            <a href="#contract" data-route="contract">合同签署</a>
+            <a href="#upload" data-route="upload">资料管理</a>
+            <a href="#payment" data-route="payment">账单支付</a>
+          </aside>
+          <div class="dashboard-main">
+            <div class="section-header compact">
+              <span>用户中心</span>
+              <h2>我的订阅</h2>
+            </div>
+            <div class="user-card">
+              <div>
+                <h3>Model E 城市版</h3>
+                <p>订单号：SO20260521001 · 状态：待签署合同</p>
+              </div>
+              <a class="secondary-button" href="#contract" data-route="contract">查看合同</a>
+            </div>
+            <div class="progress-line">
+              <span class="done">申请</span>
+              <span class="done">审核</span>
+              <span class="active">签约</span>
+              <span>支付</span>
+              <span>交付</span>
+            </div>
+            <div class="metric-grid">
+              <article><span>下次账单</span><strong>2026-06-21</strong></article>
+              <article><span>月租</span><strong>¥4,280</strong></article>
+              <article><span>剩余里程</span><strong>1,820 km</strong></article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="contract" data-page="contract">
+        <div class="contract-layout">
+          <div class="contract-doc">
+            <span>汽车订阅服务合同</span>
+            <h2>星途订阅平台车辆订阅协议</h2>
+            <p>甲方为车辆订阅服务提供方，乙方为订阅用户。双方确认车辆、费用、交付、保险、违约与退订规则，并通过电子签名完成合同确认。</p>
+            <div class="contract-clause">1. 订阅车辆：Model E 城市版，车架号待交付时确认。</div>
+            <div class="contract-clause">2. 订阅周期：24 个月，月租 ¥4,280，押金 ¥12,000。</div>
+            <div class="contract-clause">3. 费用支付：乙方应按月支付订阅费用，逾期将触发提醒与风控流程。</div>
+            <div class="signature-box">点击右侧按钮完成电子签署</div>
+          </div>
+          <aside class="contract-actions">
+            <span class="eyebrow">合同查看与签署页</span>
+            <h3>签署状态</h3>
+            <p>合同模板已生成，等待用户电子签。</p>
+            <button class="primary-button wide" id="signButton">电子签署</button>
+            <button class="secondary-button wide">下载合同</button>
+          </aside>
+        </div>
+      </section>
+
+      <section class="page" id="admin" data-page="admin">
+        <div class="admin-layout">
+          <aside class="admin-menu">
+            <strong>运营后台</strong>
+            <button class="admin-tab active" data-admin="vehicles">车辆管理</button>
+            <button class="admin-tab" data-admin="pricing">价格管理</button>
+            <button class="admin-tab" data-admin="orders">订单管理</button>
+            <button class="admin-tab" data-admin="customers">客户管理</button>
+            <button class="admin-tab" data-admin="contracts">合同管理</button>
+            <button class="admin-tab" data-admin="payments">支付管理</button>
+            <button class="admin-tab" data-admin="risk">风控审核</button>
+            <button class="admin-tab" data-admin="analytics">运营数据</button>
+          </aside>
+          <section class="admin-content">
+            <div class="admin-head">
+              <div>
+                <span class="eyebrow">后台模块</span>
+                <h2 id="adminTitle">车辆管理</h2>
+              </div>
+              <button class="primary-button">新增记录</button>
+            </div>
+            <div class="admin-kpis" id="adminKpis"></div>
+            <div class="table-wrap">
+              <table>
+                <thead id="adminTableHead"></thead>
+                <tbody id="adminTableBody"></tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
