@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>运营后台 - 星途订阅</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="./admin.html">
+        <span class="brand-mark">S</span>
+        <span>
+          <strong>运营后台</strong>
+          <small>Operations Console</small>
+        </span>
+      </a>
+      <nav class="main-nav" aria-label="后台导航">
+        <button class="admin-tab active" data-admin="vehicles">车辆管理</button>
+        <button class="admin-tab" data-admin="pricing">价格管理</button>
+        <button class="admin-tab" data-admin="orders">订单管理</button>
+        <button class="admin-tab" data-admin="customers">客户管理</button>
+        <button class="admin-tab" data-admin="contracts">合同管理</button>
+        <button class="admin-tab" data-admin="payments">支付管理</button>
+        <button class="admin-tab" data-admin="risk">风控审核</button>
+        <button class="admin-tab" data-admin="analytics">运营数据</button>
+      </nav>
+      <button class="ghost-button" id="logoutButton">退出登录</button>
+    </header>
+
+    <main class="page active admin-page">
+      <section class="admin-content">
+        <div class="admin-head">
+          <div>
+            <span class="eyebrow">后台模块</span>
+            <h1 id="adminTitle">车辆管理</h1>
+            <p id="adminSubtitle">车辆、订单、合同、支付均来自同一份模拟业务数据。</p>
+          </div>
+          <button class="secondary-button" id="resetDataButton">重置演示数据</button>
+        </div>
+        <div class="admin-kpis" id="adminKpis"></div>
+        <div class="table-wrap">
+          <table>
+            <thead id="adminTableHead"></thead>
+            <tbody id="adminTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="./data.js"></script>
+    <script src="./admin.js"></script>
+  </body>
+</html>

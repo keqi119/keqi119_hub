@@ -201,11 +201,29 @@ main {
   background: var(--primary-dark);
 }
 
+.primary-button:disabled,
+.secondary-button:disabled,
+.ghost-button:disabled,
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
 .secondary-button,
 .ghost-button {
   background: var(--panel);
   border: 1px solid var(--line);
   color: var(--text);
+}
+
+.compact-button {
+  min-height: 34px;
+  padding: 0 11px;
+  font-size: 13px;
+}
+
+.danger-action {
+  color: var(--danger);
 }
 
 .wide {
@@ -593,6 +611,15 @@ main {
   cursor: pointer;
 }
 
+.upload-box input[type="file"] {
+  width: 100%;
+  border: 1px dashed var(--primary);
+  border-radius: 8px;
+  color: var(--muted);
+  background: #f4f8ff;
+  padding: 10px;
+}
+
 .checkout-main,
 .checkout-side,
 .contract-actions,
@@ -762,6 +789,16 @@ main {
   font-size: 34px;
 }
 
+.admin-head h1 {
+  margin: 6px 0 0;
+  font-size: 36px;
+}
+
+.admin-head p {
+  margin: 8px 0 0;
+  color: var(--muted);
+}
+
 .admin-kpis {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   margin-bottom: 18px;
@@ -811,6 +848,85 @@ th {
   color: var(--primary-dark);
   font-size: 12px;
   font-weight: 800;
+}
+
+.action-cell {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.empty-state {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 28px;
+}
+
+.empty-state p {
+  color: var(--muted);
+}
+
+.toast {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 50;
+  max-width: min(420px, calc(100vw - 36px));
+  padding: 13px 16px;
+  color: white;
+  background: #132033;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.login-page {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(16, 107, 255, 0.14), transparent 30%),
+    linear-gradient(135deg, #f6f8fb, #eef6ff);
+}
+
+.login-shell {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 24px;
+}
+
+.login-card {
+  display: grid;
+  gap: 24px;
+  width: min(460px, 100%);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  padding: 30px;
+}
+
+.login-card h1 {
+  margin: 10px 0 10px;
+  font-size: 34px;
+  line-height: 1.12;
+}
+
+.login-card p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.admin-page {
+  width: min(1280px, calc(100% - 36px));
 }
 
 @media (max-width: 980px) {

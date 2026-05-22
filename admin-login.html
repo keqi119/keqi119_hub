@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>运营后台登录 - 星途订阅</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="login-page">
+    <main class="login-shell">
+      <section class="login-card">
+        <a class="brand" href="./index.html">
+          <span class="brand-mark">S</span>
+          <span>
+            <strong>星途运营后台</strong>
+            <small>Operations Console</small>
+          </span>
+        </a>
+        <div>
+          <span class="eyebrow">独立后台登录</span>
+          <h1>登录运营工作台</h1>
+          <p>后台已从客户前端剥离。演示账号：<strong>admin</strong> / <strong>Subscription2026</strong></p>
+        </div>
+        <form class="stacked-form" id="loginForm">
+          <label>账号<input name="username" type="text" value="admin" autocomplete="username" required /></label>
+          <label>密码<input name="password" type="password" value="Subscription2026" autocomplete="current-password" required /></label>
+          <button class="primary-button wide" type="submit">登录后台</button>
+          <a class="secondary-button wide" href="./index.html">返回客户前端</a>
+        </form>
+      </section>
+    </main>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="./data.js"></script>
+    <script>
+      const toast = (message) => {
+        const el = document.querySelector("#toast");
+        el.textContent = message;
+        el.classList.add("show");
+        setTimeout(() => el.classList.remove("show"), 2200);
+      };
+      document.querySelector("#loginForm").addEventListener("submit", (event) => {
+        event.preventDefault();
+        const form = new FormData(event.currentTarget);
+        if (AppStore.login(form.get("username"), form.get("password"))) {
+          location.href = "./admin.html";
+        } else {
+          toast("账号或密码错误");
+        }
+      });
+    </script>
+  </body>
+</html>
