@@ -1073,7 +1073,210 @@ th {
   width: min(1280px, calc(100% - 36px));
 }
 
+.admin-shell-body {
+  background: #f6f8fb;
+}
+
+.admin-shell {
+  display: grid;
+  grid-template-columns: 248px minmax(0, 1fr);
+  min-height: 100vh;
+}
+
+.admin-sidebar {
+  position: sticky;
+  top: 0;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 18px;
+  height: 100vh;
+  background: #ffffff;
+  border-right: 1px solid var(--line);
+  padding: 18px;
+}
+
+.admin-brand {
+  min-width: 0;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.admin-side-nav {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+}
+
+.admin-side-nav .admin-tab {
+  display: flex;
+  align-items: center;
+  min-height: 42px;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font-weight: 800;
+  text-align: left;
+}
+
+.admin-side-nav .admin-tab.active {
+  background: #eaf2ff;
+  color: var(--primary-dark);
+}
+
+.admin-sidebar-foot {
+  display: grid;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.admin-main {
+  min-width: 0;
+  padding: 22px;
+}
+
+.admin-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.admin-top h1 {
+  margin: 6px 0 6px;
+  font-size: 34px;
+  line-height: 1.12;
+}
+
+.admin-top p {
+  max-width: 760px;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.admin-top-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.admin-content-flat {
+  padding: 0;
+  background: transparent;
+  border: 0;
+}
+
+.admin-content-flat .admin-toolbar,
+.admin-content-flat .admin-kpis,
+.admin-list-panel,
+.admin-detail {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 8px 22px rgba(21, 42, 70, 0.05);
+}
+
+.admin-content-flat .admin-toolbar {
+  grid-template-columns: minmax(260px, 1fr) 220px;
+  padding: 16px;
+}
+
+.admin-content-flat .admin-kpis {
+  padding: 16px;
+}
+
+.admin-list-panel {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.panel-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 16px 0;
+}
+
+.panel-title span {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.admin-list-panel .table-wrap {
+  border: 0;
+  border-radius: 0;
+  margin-top: 10px;
+}
+
+.admin-list-panel table {
+  min-width: 720px;
+}
+
+.admin-content-flat .admin-detail {
+  background: white;
+}
+
 @media (max-width: 980px) {
+  .admin-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-sidebar {
+    position: sticky;
+    z-index: 20;
+    top: 0;
+    height: auto;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-rows: auto;
+    align-items: center;
+    padding: 12px;
+  }
+
+  .admin-brand {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .admin-side-nav {
+    display: grid;
+    grid-auto-columns: max-content;
+    grid-auto-flow: column;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+  }
+
+  .admin-side-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .admin-sidebar-foot {
+    display: flex;
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .admin-sidebar-foot .secondary-button {
+    display: none;
+  }
+
+  .admin-main {
+    padding: 16px;
+  }
+
+  .admin-top {
+    flex-direction: column;
+  }
+
+  .admin-top-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
   .topbar,
   .main-nav {
     flex-wrap: wrap;
@@ -1129,6 +1332,51 @@ th {
 }
 
 @media (max-width: 620px) {
+  .admin-sidebar {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .admin-brand small {
+    display: block;
+  }
+
+  .admin-side-nav {
+    margin: 0 -12px;
+    padding: 0 12px 6px;
+  }
+
+  .admin-side-nav .admin-tab {
+    background: var(--panel-soft);
+    white-space: nowrap;
+  }
+
+  .admin-sidebar-foot {
+    display: grid;
+  }
+
+  .admin-sidebar-foot .secondary-button {
+    display: inline-flex;
+  }
+
+  .admin-main {
+    padding: 12px;
+  }
+
+  .admin-top h1 {
+    font-size: 28px;
+  }
+
+  .admin-top-actions .primary-button,
+  .admin-top-actions .secondary-button {
+    width: 100%;
+  }
+
+  .panel-title {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
   body {
     background: #f8fafc;
   }

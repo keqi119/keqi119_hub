@@ -6,68 +6,85 @@
     <title>运营后台 - 星途订阅</title>
     <link rel="stylesheet" href="./styles.css" />
   </head>
-  <body>
-    <header class="topbar">
-      <a class="brand" href="./admin.html">
-        <span class="brand-mark">S</span>
-        <span>
-          <strong>运营后台</strong>
-          <small>Operations Console</small>
-        </span>
-      </a>
-      <nav class="main-nav" aria-label="后台导航">
-        <button class="admin-tab active" data-admin="vehicles">车辆管理</button>
-        <button class="admin-tab" data-admin="pricing">价格管理</button>
-        <button class="admin-tab" data-admin="orders">订单管理</button>
-        <button class="admin-tab" data-admin="customers">客户管理</button>
-        <button class="admin-tab" data-admin="contracts">合同管理</button>
-        <button class="admin-tab" data-admin="payments">支付管理</button>
-        <button class="admin-tab" data-admin="risk">风控审核</button>
-        <button class="admin-tab" data-admin="analytics">运营数据</button>
-      </nav>
-      <button class="ghost-button" id="logoutButton">退出登录</button>
-    </header>
+  <body class="admin-shell-body">
+    <div class="admin-shell">
+      <aside class="admin-sidebar" aria-label="运营后台功能列表">
+        <a class="brand admin-brand" href="./admin.html">
+          <span class="brand-mark">S</span>
+          <span>
+            <strong>星途运营后台</strong>
+            <small>Operations Console</small>
+          </span>
+        </a>
+        <nav class="admin-side-nav">
+          <button class="admin-tab active" data-admin="vehicles">车辆管理</button>
+          <button class="admin-tab" data-admin="pricing">价格管理</button>
+          <button class="admin-tab" data-admin="orders">订单管理</button>
+          <button class="admin-tab" data-admin="customers">客户管理</button>
+          <button class="admin-tab" data-admin="contracts">合同管理</button>
+          <button class="admin-tab" data-admin="payments">支付管理</button>
+          <button class="admin-tab" data-admin="risk">风控审核</button>
+          <button class="admin-tab" data-admin="analytics">运营数据</button>
+        </nav>
+        <div class="admin-sidebar-foot">
+          <a class="secondary-button wide" href="./index.html">客户前端</a>
+          <button class="ghost-button wide" id="logoutButton">退出登录</button>
+        </div>
+      </aside>
 
-    <main class="page active admin-page">
-      <section class="admin-content">
-        <div class="admin-head">
+      <main class="admin-main">
+        <header class="admin-top">
           <div>
             <span class="eyebrow">后台模块</span>
             <h1 id="adminTitle">车辆管理</h1>
             <p id="adminSubtitle">车辆、订单、合同、支付均来自同一份模拟业务数据。</p>
           </div>
-          <button class="secondary-button" id="resetDataButton">重置演示数据</button>
-        </div>
-        <div class="admin-toolbar">
-          <label class="search-field">
-            <span>搜索</span>
-            <input id="adminSearch" type="search" placeholder="输入订单号、客户、车型、合同号" />
-          </label>
-          <label class="search-field">
-            <span>状态</span>
-            <select id="adminStatusFilter">
-              <option value="all">全部状态</option>
-            </select>
-          </label>
-          <button class="primary-button" id="adminPrimaryAction">新增/处理</button>
-        </div>
-        <div class="admin-kpis" id="adminKpis"></div>
-        <div class="admin-workspace">
-          <div class="table-wrap">
-            <table>
-              <thead id="adminTableHead"></thead>
-              <tbody id="adminTableBody"></tbody>
-            </table>
+          <div class="admin-top-actions">
+            <button class="secondary-button" id="resetDataButton">重置演示数据</button>
+            <button class="primary-button" id="adminPrimaryAction">新增/处理</button>
           </div>
-          <aside class="admin-detail" id="adminDetail">
-            <div class="empty-state">
-              <h3>选择一条记录</h3>
-              <p>这里会显示二级详情、校验结果和可执行操作。</p>
+        </header>
+
+        <section class="admin-content admin-content-flat">
+          <div class="admin-toolbar">
+            <label class="search-field">
+              <span>搜索</span>
+              <input id="adminSearch" type="search" placeholder="输入订单号、客户、车型、合同号" />
+            </label>
+            <label class="search-field">
+              <span>状态</span>
+              <select id="adminStatusFilter">
+                <option value="all">全部状态</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="admin-kpis" id="adminKpis"></div>
+
+          <div class="admin-workspace">
+            <div class="admin-list-panel">
+              <div class="panel-title">
+                <strong>业务列表</strong>
+                <span>一级模块 / 二级记录</span>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead id="adminTableHead"></thead>
+                  <tbody id="adminTableBody"></tbody>
+                </table>
+              </div>
             </div>
-          </aside>
-        </div>
-      </section>
-    </main>
+
+            <aside class="admin-detail" id="adminDetail">
+              <div class="empty-state">
+                <h3>选择一条记录</h3>
+                <p>这里显示二级详情、校验结果和操作表单，业务深度控制在 3 层以内。</p>
+              </div>
+            </aside>
+          </div>
+        </section>
+      </main>
+    </div>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
     <script src="./data.js"></script>
