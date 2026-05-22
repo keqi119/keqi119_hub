@@ -73,10 +73,17 @@
               <label>期数（月）<input name="customerTerm" type="number" inputmode="numeric" /></label>
               <label>支付方式<select name="paymentMode"><option value="0">后付</option><option value="1">先付</option></select></label>
               <label>每期租金<input name="monthlyRent" type="number" inputmode="decimal" /></label>
-              <label>首期租金调整<input name="firstRentAdjustment" type="number" inputmode="decimal" /></label>
               <label>留购价<input name="buyoutPrice" type="number" inputmode="decimal" /></label>
               <label>起租日<input name="startDate" type="date" /></label>
             </div>
+          </section>
+
+          <section class="input-section">
+            <div class="section-title">
+              <h2>每期租金调整</h2>
+              <p>按期次填写租金调整金额，正数加收，负数减免。</p>
+            </div>
+            <div class="rent-adjustment-grid" id="rentAdjustmentGrid"></div>
           </section>
 
           <section class="input-section">

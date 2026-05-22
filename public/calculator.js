@@ -8,7 +8,7 @@ const DEFAULTS = {
   customerTerm: 36,
   paymentMode: 0,
   monthlyRent: 12162,
-  firstRentAdjustment: 12168,
+  rentAdjustments: { 1: 12168 },
   buyoutPrice: 2000,
   startDate: "2026-05-01",
   financeDownRatio: 0.1,
@@ -46,7 +46,9 @@ const DEFAULTS = {
 
 const form = document.querySelector("#calcForm");
 const depreciationGrid = document.querySelector("#depreciationGrid");
+const rentAdjustmentGrid = document.querySelector("#rentAdjustmentGrid");
 let latestResult = null;
+let lastCommissionSource = "rate";
 
 const moneyFmt = new Intl.NumberFormat("zh-CN", {
   style: "currency",
@@ -131,6 +133,11 @@ function getInputs() {
       data[key] = asNumber(value);
     }
   });
+  data.rentAdjustments = {};
+  rentAdjustmentGrid.querySelectorAll("[data-period]").forEach((field) => {
+    const period = asNumber(field.dataset.period);
+    data.rentAdjustments[period] = asNumber(field.value);
+  });
   depreciationGrid.querySelectorAll(".depreciation-row").forEach((row) => {
     data.depreciation.push({
       rate: asNumber(row.querySelector("[data-field='rate']").value),
@@ -139,6 +146,13 @@ function getInputs() {
     });
   });
   return data;
+}
+
+function rentAdjustmentFor(input, period) {
+  if (input.rentAdjustments && Object.prototype.hasOwnProperty.call(input.rentAdjustments, period)) {
+    return asNumber(input.rentAdjustments[period]);
+  }
+  return period === 1 ? asNumber(input.firstRentAdjustment) : 0;
 }
 
 function calculate(input) {
@@ -174,7 +188,7 @@ function calculate(input) {
     if (item === 0) return -vehicleTotal;
     if (period === "") return 0;
     const rentPlan = input.paymentMode === 1 && period === input.customerTerm ? 0 : input.monthlyRent;
-    return rentPlan + (item === 1 ? input.firstRentAdjustment : 0);
+    return rentPlan + rentAdjustmentFor(input, period);
   });
   const customerAnnualRate = irr(customerRentCashflows) * 12;
   const rows = [];
@@ -190,7 +204,7 @@ function calculate(input) {
       : input.paymentMode === 1 && period === input.customerTerm ? 0
         : input.paymentMode === 0 && period === 0 ? 0
           : input.monthlyRent;
-    const rentAdjust = item === 1 ? input.firstRentAdjustment : 0;
+    const rentAdjust = inTerm ? rentAdjustmentFor(input, period) : 0;
     const rent = rentPlan + rentAdjust;
     const buyout = period === input.customerTerm ? input.buyoutPrice : 0;
     const revenue = service1 + service2 + depositIn + rent + buyout;
@@ -401,10 +415,11 @@ function renderAll() {
 
 function setDefaults(values = DEFAULTS) {
   Object.entries(values).forEach(([key, value]) => {
-    if (key === "depreciation") return;
+    if (key === "depreciation" || key === "rentAdjustments") return;
     const field = form.elements[key];
     if (field) field.value = value;
   });
+  renderRentAdjustments(values);
   depreciationGrid.innerHTML = "";
   (values.depreciation || DEFAULTS.depreciation).forEach((row) => {
     const el = document.createElement("div");
@@ -418,6 +433,46 @@ function setDefaults(values = DEFAULTS) {
   });
 }
 
+function renderRentAdjustments(values = getInputs()) {
+  const previous = {};
+  rentAdjustmentGrid.querySelectorAll("[data-period]").forEach((field) => {
+    previous[field.dataset.period] = asNumber(field.value);
+  });
+  const source = { ...(values.rentAdjustments || {}), ...previous };
+  if (values.firstRentAdjustment !== undefined && source[1] === undefined) {
+    source[1] = asNumber(values.firstRentAdjustment);
+  }
+  const term = Math.max(1, Math.min(60, Math.round(asNumber(values.customerTerm || DEFAULTS.customerTerm))));
+  rentAdjustmentGrid.innerHTML = "";
+  for (let period = 1; period <= term; period += 1) {
+    const el = document.createElement("div");
+    el.className = "rent-adjustment-row";
+    el.innerHTML = `
+      <label>第 ${period} 期<input data-period="${period}" type="number" inputmode="decimal" value="${source[period] ?? 0}" /></label>
+    `;
+    rentAdjustmentGrid.appendChild(el);
+  }
+}
+
+function syncCommission(changedName) {
+  const vehiclePrice = asNumber(form.elements.vehiclePrice.value);
+  const rateField = form.elements.commissionRate;
+  const amountField = form.elements.salesCommission;
+  if (changedName === "salesCommission") {
+    lastCommissionSource = "amount";
+    rateField.value = vehiclePrice === 0 ? 0 : asNumber(amountField.value) / vehiclePrice;
+    return;
+  }
+  if (changedName === "commissionRate") {
+    lastCommissionSource = "rate";
+  }
+  if (changedName === "vehiclePrice" && lastCommissionSource === "amount") {
+    rateField.value = vehiclePrice === 0 ? 0 : asNumber(amountField.value) / vehiclePrice;
+    return;
+  }
+  amountField.value = vehiclePrice * asNumber(rateField.value);
+}
+
 document.querySelectorAll(".tabs button").forEach((button) => {
   button.addEventListener("click", () => {
     document.querySelectorAll(".tabs button").forEach((item) => item.classList.remove("active"));
@@ -428,7 +483,16 @@ document.querySelectorAll(".tabs button").forEach((button) => {
   });
 });
 
-form.addEventListener("input", renderAll);
+form.addEventListener("input", (event) => {
+  if (["commissionRate", "salesCommission", "vehiclePrice"].includes(event.target.name)) {
+    syncCommission(event.target.name);
+  }
+  if (event.target.name === "customerTerm") {
+    renderRentAdjustments(getInputs());
+  }
+  renderAll();
+});
+rentAdjustmentGrid.addEventListener("input", renderAll);
 depreciationGrid.addEventListener("input", renderAll);
 window.addEventListener("resize", () => latestResult && renderChart(latestResult));
 
