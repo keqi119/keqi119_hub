@@ -38,12 +38,33 @@
           </div>
           <button class="secondary-button" id="resetDataButton">重置演示数据</button>
         </div>
+        <div class="admin-toolbar">
+          <label class="search-field">
+            <span>搜索</span>
+            <input id="adminSearch" type="search" placeholder="输入订单号、客户、车型、合同号" />
+          </label>
+          <label class="search-field">
+            <span>状态</span>
+            <select id="adminStatusFilter">
+              <option value="all">全部状态</option>
+            </select>
+          </label>
+          <button class="primary-button" id="adminPrimaryAction">新增/处理</button>
+        </div>
         <div class="admin-kpis" id="adminKpis"></div>
-        <div class="table-wrap">
-          <table>
-            <thead id="adminTableHead"></thead>
-            <tbody id="adminTableBody"></tbody>
-          </table>
+        <div class="admin-workspace">
+          <div class="table-wrap">
+            <table>
+              <thead id="adminTableHead"></thead>
+              <tbody id="adminTableBody"></tbody>
+            </table>
+          </div>
+          <aside class="admin-detail" id="adminDetail">
+            <div class="empty-state">
+              <h3>选择一条记录</h3>
+              <p>这里会显示二级详情、校验结果和可执行操作。</p>
+            </div>
+          </aside>
         </div>
       </section>
     </main>
