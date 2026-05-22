@@ -286,7 +286,12 @@ function renderAdmin(moduleName = "vehicles") {
     .map(
       (row) => `
         <tr>
-          ${row.map((cell, index) => `<td>${index >= row.length - 2 ? `<span class="status">${cell}</span>` : cell}</td>`).join("")}
+          ${row
+            .map(
+              (cell, index) =>
+                `<td data-label="${module.columns[index]}">${index >= row.length - 2 ? `<span class="status">${cell}</span>` : cell}</td>`
+            )
+            .join("")}
         </tr>
       `
     )

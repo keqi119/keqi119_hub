@@ -23,12 +23,14 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
+  overflow-x: hidden;
 }
 
 a {
@@ -41,6 +43,14 @@ input,
 select,
 textarea {
   font: inherit;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
 }
 
 .topbar {
@@ -178,6 +188,7 @@ main {
   cursor: pointer;
   font-weight: 800;
   padding: 0 18px;
+  touch-action: manipulation;
 }
 
 .primary-button {
@@ -766,6 +777,7 @@ main {
   overflow-x: auto;
   border: 1px solid var(--line);
   border-radius: 8px;
+  -webkit-overflow-scrolling: touch;
 }
 
 table {
@@ -811,6 +823,13 @@ th {
     justify-content: flex-start;
     order: 3;
     width: 100%;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+  }
+
+  .main-nav::-webkit-scrollbar {
+    display: none;
   }
 
   .hero,
@@ -840,31 +859,142 @@ th {
 }
 
 @media (max-width: 620px) {
+  body {
+    background: #f8fafc;
+  }
+
   .page {
     width: min(100% - 24px, 1180px);
-    padding-top: 26px;
+    padding: 24px 0 44px;
   }
 
   .topbar {
-    padding: 12px;
+    gap: 10px;
+    min-height: auto;
+    padding: 10px 12px;
   }
 
-  .ghost-button {
+  .brand {
+    min-width: 0;
+  }
+
+  .brand-mark {
+    width: 38px;
+    height: 38px;
+  }
+
+  .brand strong {
+    font-size: 15px;
+  }
+
+  .brand small {
+    display: none;
+  }
+
+  .main-nav {
+    display: grid;
+    grid-auto-columns: max-content;
+    grid-auto-flow: column;
+    gap: 8px;
+    margin: 0 -12px;
+    padding: 2px 12px 8px;
+    width: calc(100% + 24px);
+  }
+
+  .main-nav a {
+    background: white;
+    border: 1px solid var(--line);
+    padding: 9px 12px;
+    white-space: nowrap;
+  }
+
+  .ghost-button,
+  .hero-actions .primary-button,
+  .hero-actions .secondary-button,
+  .flow-actions .primary-button,
+  .flow-actions .secondary-button {
     width: 100%;
   }
 
   .hero {
     min-height: unset;
+    gap: 24px;
+  }
+
+  .hero-copy h1 {
+    font-size: 38px;
+    line-height: 1.12;
+  }
+
+  .hero-copy p {
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .hero-actions,
+  .flow-actions {
+    margin-top: 20px;
   }
 
   .hero-visual {
-    min-height: 290px;
+    min-height: 260px;
   }
 
   .car-illustration {
-    right: -28px;
-    bottom: 70px;
-    transform: scale(0.72);
+    right: -56px;
+    bottom: 54px;
+    transform: scale(0.64);
+  }
+
+  .floating-stat {
+    padding: 11px 12px;
+  }
+
+  .floating-stat.top {
+    left: 14px;
+    top: 14px;
+  }
+
+  .floating-stat.bottom {
+    right: 14px;
+    bottom: 14px;
+  }
+
+  .section-header {
+    margin-bottom: 18px;
+  }
+
+  .section-header h2,
+  .form-shell h2,
+  .checkout-main h2,
+  .payment-panel h2 {
+    font-size: 28px;
+    line-height: 1.16;
+  }
+
+  .section-header.compact h2,
+  .admin-head h2 {
+    font-size: 28px;
+  }
+
+  .filter-bar,
+  .pay-methods {
+    display: grid;
+    grid-auto-columns: max-content;
+    grid-auto-flow: column;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    scrollbar-width: none;
+  }
+
+  .filter-bar::-webkit-scrollbar,
+  .pay-methods::-webkit-scrollbar {
+    display: none;
+  }
+
+  .filter,
+  .pay-method {
+    white-space: nowrap;
   }
 
   .steps-grid,
@@ -882,5 +1012,177 @@ th {
   .admin-head {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .steps-grid article,
+  .model-card,
+  .plan-card,
+  .upload-box,
+  .metric-grid article,
+  .admin-kpis article,
+  .detail-media,
+  .detail-panel,
+  .checkout-main,
+  .checkout-side,
+  .contract-doc,
+  .contract-actions,
+  .form-shell,
+  .dashboard-main,
+  .admin-content,
+  .payment-panel {
+    padding: 16px;
+  }
+
+  .model-image {
+    min-height: 130px;
+  }
+
+  .card-foot,
+  .summary-list div,
+  .price-line,
+  .price-total {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .card-foot .secondary-button {
+    width: 100%;
+  }
+
+  .detail-media {
+    min-height: 230px;
+  }
+
+  .detail-media .mini-car {
+    height: 92px;
+    margin-bottom: 30px;
+    width: 88%;
+  }
+
+  .upload-box {
+    min-height: 150px;
+  }
+
+  .qr-code {
+    width: min(210px, 72vw);
+    height: min(210px, 72vw);
+    font-size: 24px;
+  }
+
+  .sidebar,
+  .admin-menu {
+    display: grid;
+    grid-auto-columns: max-content;
+    grid-auto-flow: column;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 12px;
+    scrollbar-width: none;
+  }
+
+  .sidebar::-webkit-scrollbar,
+  .admin-menu::-webkit-scrollbar {
+    display: none;
+  }
+
+  .sidebar strong,
+  .admin-menu strong {
+    align-self: center;
+    white-space: nowrap;
+  }
+
+  .sidebar a,
+  .admin-tab {
+    background: var(--panel-soft);
+    white-space: nowrap;
+  }
+
+  .progress-line {
+    grid-template-columns: repeat(5, minmax(74px, 1fr));
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .contract-doc {
+    min-height: unset;
+  }
+
+  .contract-doc h2 {
+    text-align: left;
+  }
+
+  .table-wrap {
+    border: 0;
+    overflow: visible;
+  }
+
+  table,
+  thead,
+  tbody,
+  tr,
+  th,
+  td {
+    display: block;
+  }
+
+  table {
+    min-width: 0;
+    background: transparent;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tbody {
+    display: grid;
+    gap: 12px;
+  }
+
+  tr {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    box-shadow: 0 8px 22px rgba(21, 42, 70, 0.05);
+    overflow: hidden;
+  }
+
+  td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    min-height: 48px;
+    padding: 12px 14px;
+    white-space: normal;
+  }
+
+  td::before {
+    content: attr(data-label);
+    color: var(--muted);
+    flex: 0 0 auto;
+    font-size: 13px;
+    font-weight: 700;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero-copy h1 {
+    font-size: 34px;
+  }
+
+  .section-header h2,
+  .form-shell h2,
+  .checkout-main h2,
+  .payment-panel h2 {
+    font-size: 25px;
+  }
+
+  .primary-button,
+  .secondary-button,
+  .ghost-button {
+    min-height: 46px;
+    padding: 0 14px;
   }
 }
